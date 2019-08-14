@@ -1,0 +1,2 @@
+# basics
+statistics, mathematics, python
