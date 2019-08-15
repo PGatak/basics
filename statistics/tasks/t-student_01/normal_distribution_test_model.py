@@ -4,8 +4,6 @@ import scipy as sp
 import matplotlib.pyplot as plt
 from statsmodels.distributions.empirical_distribution import ECDF
 
-from preparation import data_1, data_2
-
 
 def basic_test(data):
     m, s = sp.stats.norm.fit(data)
@@ -44,7 +42,7 @@ def kstest_test(data):
     m, s = sp.stats.norm.fit(data)
     test = sp.stats.kstest(data, 'norm', args=(m, s))
     pv = test.pvalue
-    print("{} : Test Kołomogorowa - Smirnowa porownuje dystrybuanty\n"
+    print("{} : Test Kołomogorowa-Smirnowa porownuje dystrybuanty\n"
           "P-value wynosi:{}".format(data.name, round(pv, 2)))
     if pv > 0.05:
         return "Nie ma podstaw do odrzucenia hipotezy 0"
@@ -73,14 +71,4 @@ def plot_test(data, i=0):
     plt.subplot(133)
     sp.stats.probplot(data, dist=sp.stats.norm, plot=plt)
 
-print(basic_test(data_1.PRZED_1))
-print(skew_test(data_1.PRZED_1))
-print(kurtosis_test(data_1.PRZED_1))
-print(shapiro_test(data_1.PRZED_1))
-print(kstest_test(data_1.PRZED_1))
 
-plot_test(data_1.PRZED_1, 1)
-plot_test(data_1.PO_1, 2)
-plot_test(data_2.PRZED_2, 3)
-plot_test(data_2.PO_2, 4)
-plt.show()
