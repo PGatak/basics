@@ -1,5 +1,5 @@
 from preparation import data_1, data_2
-from normal_distribution_test_model import *
+from normal_distribution_test_models import *
 
 
 print(basic_test(data_1.PRZED_1))
