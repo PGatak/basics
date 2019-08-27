@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import seaborn as sns
 import numpy as np
 import scipy as sp
