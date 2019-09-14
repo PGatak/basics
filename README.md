@@ -1,3 +1,3 @@
 # basics
-statistics, mathematics, python
+machine learning, mathematics, python, scraping, statistics
 
