@@ -4,7 +4,6 @@ import csv
 import json
 import time
 import requests
-import uuid
 
 URL = "https://pl.jooble.org/praca-opieka-nad-osoba-starsza/Niemcy?date=3"
 
@@ -29,36 +28,21 @@ class HousingOffers:
 
 def fix(offer):
     replacements = {
-        "m²": "",
-        "zł": "",
-        "pln": "",
-        " ": "",
-        ",": ".",
-        "pokój": "",
-        "pokoje": "",
-        "pokoi": "",
+        "1 dzień temu": "24",
+        "2 dni temu": "48",
+        "3 dni temu": "72",
+        "4 dni temu": "96",
+        "5 dni temu": "120",
+        "6 dni temu": "144",
+        "7 dni temu": "168",
+        "godzin": "",
+        "temu": ""
     }
 
     for k, v in replacements.items():
-        offer.meters = offer.meters.replace(k, v)
-        offer.price = offer.price.replace(k, v)
-        offer.rooms = offer.rooms.replace(k, v)
-        offer.dealer = offer.dealer.replace(k, v)
+        offer.date = offer.date.replace(k, v)
 
-    offer.meters = offer.meters.strip()
-    offer.price = offer.price.strip()
-
-    offer.location = (
-        offer.location.strip().split()
-        if offer.location else None
-    )
-    offer.location = list(
-        map(
-            lambda l: l.rstrip(","),
-            offer.location[-2:] if offer.location else []
-        )
-    )
-    offer.district = offer.location[-1] if offer.location else None
+    offer.date = offer.date.strip()
 
 
 def extract_next_url(text):
@@ -106,7 +90,7 @@ def extract_offers(text):
 
         offer = HousingOffers(id=id, company_name=company_name, salary=salary, location=location,
                               title=title, link=link, date=date)
-        #fix(offer)
+        fix(offer)
         offers.append(offer)
 
     jobs = soup.find_all(class_="vacancy_wrapper vacancy-js vacancy_wrapper-js vacancy_wrapper--easy-apply")
@@ -142,7 +126,7 @@ def extract_offers(text):
 
         offer = HousingOffers(id=id, company_name=company_name, salary=salary, location=location,
                               title=title, link=link, date=date)
-        #fix(offer)
+        fix(offer)
         offers.append(offer)
 
     return offers
@@ -158,7 +142,7 @@ def main():
 
     next_url = URL
 
-    dir_id = str(uuid.uuid4())
+    dir_id = time.strftime("%Y-%m-%d-%s", time.localtime())
     output_dir = os.path.join("data", dir_id)
     os.makedirs(output_dir, exist_ok=True)
 
