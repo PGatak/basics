@@ -141,7 +141,49 @@ print(np.dot(M,M.T),"\n")
 print(np.cumsum(s),"\n") # w przypadku macierzy axis = 0 dla wiersza i axis = 1 dla kolumny
 print(np.diff(s),"\n")
 
+# Indeksowanie tablic
 
+x = np.array([2,5,8,3,5,5,6,7,8,9])
+A = np.array([[1,2,4],[1,1,5],[1,3,2],[2,5,9],[2,6,7],[2,7,1]])
+
+print(A,"\n")
+print(x,"\n")
+
+print(x[4],"\t",x[-1],"\n")             # piaty i ostatni element wektora
+print(x[2:7:2],"\n")                    # wybieramy elementy od 2 do 7(bez ostatniego) oddalone od siebie o 2
+print(x[2::2],"\n")
+print(x[:7:2],"\n")
+print(x[[0,2,3,7]],"\n")                     # indeksowanie wektorem
+print(x[[True,True,False,False,True,True,False,False,False,True]],"\n") # indeksowanie wektorem logicznym
+
+# Zwektoryzowane operatory relacyjne i logiczne. Operatory relacyjne bez zmian.
+# Operatory logiczne:
+# a | b - alternatywa
+# a & b - koniunkcja
+# ~ a   - negacja
+# Operatory relacyjne maja nizszy priorytet niz logiczne, nalezy pamietac o nawiasach
+
+print(x[x % 2 == 0],"\n")                   # wybranie elementow o wartosciach parzystych
+
+for index , wiersz in enumerate(A):
+    print(index,":",wiersz,end="\n")
+
+print(A[3],"\n")                           # trzeci wiersz
+print(A[3][0],"\n")                        # zerowy element trzeciego wiersza
+
+print(A[(3,0)],"\n")                       # inna metoda (mozna pominac ()) - zerowy element trzeciego wiersza
+
+print(A[0:3:1,:],"\n")                     # pierwsze trzy wiersze
+print(A[:,2:4:1],"\n")                     # trzecia kolumna
+print(A[2:5,:3],"\n")                      # wiersze 2,3,4 i wszystkie kolumny
+
+print(A[np.ix_([0,1],[1,2])],"\n")         # wybieramy 0 i 1 wiersz oraz 1 i 2 kolumne
+
+# Wyszukiwanie numerow indeksow elementow spelniajacych dany warunek
+
+print(np.nonzero(x == 5),"\n")             # numery indeksow ktorych elementy maja wartosc 5
+print(np.nonzero(A == 1),"\n")             # numery indeksow ktorych elementy maja wartosc 1
+print(np.where(x == 2),"\n")
 
 
 
