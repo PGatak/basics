@@ -8,7 +8,7 @@ import math
 
 # AR(p)
 
-data = [math.sin(x) + 0.25*random() for x in range(300)]
+data = [math.sin(x) + 0.75*random() for x in range(300)]
 train_data = data[:150]
 test_data = data[150:]
 
@@ -27,7 +27,7 @@ plt.show()
 
 # MA(q)
 
-model1 = ARMA(train_data, order=(0, 1,))
+model1 = ARMA(train_data, order=(0, 10,))
 model_fit1 = model1.fit(disp=False)
 
 y1 = model_fit1.predict(len(train_data),len(data)-1)
